@@ -9,13 +9,17 @@ import {
 } from 'typeorm';
 import User from './User';
 
-@Entity('team')
-class Team {
+@Entity('task')
+class Task {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+
   @Column()
-  status: 'Andamento' | 'finalizada' | 'cancelada';
+  name: string;
+
+  @Column()
+  status: 'Andamento' | 'Finalizada' | 'Cancelada';
 
   @Column()
   user_id: string;
@@ -24,11 +28,14 @@ class Team {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @Column('timestamptz')
+  started_at: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @Column('timestamptz')
+  finished_at: Date;
+
+  @Column()
+  cancellationReason: string;
 }
 
-export default Team;
+export default Task;

@@ -17,8 +17,8 @@ class User {
   @Column()
   password: string;
 
-  @Column()
-  manager: boolean;
+  @Column('bool')
+  isManager: boolean;
 
   @CreateDateColumn()
   created_at: Date;
