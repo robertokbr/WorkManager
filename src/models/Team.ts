@@ -19,15 +19,15 @@ class Team {
   user_id: string;
 
   @Column()
-  provider_id: string;
+  manager_id: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
   @OneToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
-  provider: User;
+  @JoinColumn({ name: 'manager_id' })
+  manager: User;
 
 
   @CreateDateColumn()
