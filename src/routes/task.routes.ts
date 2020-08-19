@@ -18,19 +18,19 @@ return response.json(task);
 })
 
 taskRouter.post('/', async (request, response)=>{
-const {taskName, started_at, status } = request.body;
+const {taskName, started_at } = request.body;
 const {id} = request.user;
 const createTask = new CreateTaskService();
-const task = await createTask.execute({ taskName, user_id: id, started_at, status});
+const task = await createTask.execute({ taskName, user_id: id, started_at});
 return response.json(task);
 });
 
 
 taskRouter.put('/', async (request, response)=>{
 
-  const {user_id, task_id, status, cancellationReason, finished_at } = request.body;
+  const {task_id, cancellationReason, finished_at } = request.body;
   const updateTask = new UpdateTaskService();
-  const newTask = await updateTask.execute({user_id, task_id, status, cancellationReason, finished_at})
+  const newTask = await updateTask.execute({ task_id, cancellationReason, finished_at})
   return response.json(newTask);
 });
 

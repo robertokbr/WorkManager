@@ -4,15 +4,17 @@ import Task from '../models/Task';
 interface Request{
   taskName: string;
   user_id: string;
-  status: 'Andamento' | 'Finalizada' | 'Cancelada';
-  started_at?: Date;
+  started_at?: Date | string;
 }
 
 class CreateTaskService{
-  public async  execute({taskName, user_id, started_at, status}: Request): Promise<Task>{
+  public async  execute({taskName, user_id, started_at}: Request): Promise<Task>{
     const taskRepository = getRepository(Task);
+    if(!started_at){
+      started_at = Date();
+    }
     const task =  taskRepository.create({
-     name: taskName, user: user_id, started_at,status
+     name: taskName, user: user_id, started_at,status: 'Andamento'
     });
     await taskRepository.save(task);
     return task;
