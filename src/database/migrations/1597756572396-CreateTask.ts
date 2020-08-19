@@ -31,7 +31,6 @@ export class CreateTask1597756572396 implements MigrationInterface {
               {
                 name: 'started_at',
                 type: 'timestamp',
-                default: 'now()',
               },
               {
                 name: 'finished_at',
