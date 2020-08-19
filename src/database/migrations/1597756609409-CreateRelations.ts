@@ -10,8 +10,8 @@ export class CreateRelations1597756609409 implements MigrationInterface {
         await queryRunner.createForeignKey(
           'team',
           new TableForeignKey({
-            name: 'ProviderKey',
-            columnNames: ['provider_id'],
+            name: 'managerKey',
+            columnNames: ['manager_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'users',
             onDelete: 'SET NULL',
@@ -33,7 +33,7 @@ export class CreateRelations1597756609409 implements MigrationInterface {
             'task',
             new TableForeignKey({
               name: 'UserTaskKey',
-              columnNames: ['user_id'],
+              columnNames: ['user'],
               referencedColumnNames: ['id'],
               referencedTableName: 'users',
               onDelete: 'SET NULL',
@@ -43,7 +43,7 @@ export class CreateRelations1597756609409 implements MigrationInterface {
       }
     
       public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('team', 'ProviderKey');
+        await queryRunner.dropForeignKey('team', 'managerKey');
         await queryRunner.dropForeignKey('team', 'UserTaskKey');
         await queryRunner.dropForeignKey('task', 'UserKey');
     

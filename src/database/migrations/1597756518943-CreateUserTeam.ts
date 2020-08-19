@@ -16,7 +16,7 @@ export class CreateUserTeam1597756518943 implements MigrationInterface {
                 default: 'uuid_generate_v4()',
               },
               {
-                name: 'provider_id',
+                name: 'manager_id',
                 type: 'uuid',
                 isNullable: true,
               },

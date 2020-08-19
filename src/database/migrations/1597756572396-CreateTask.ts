@@ -19,13 +19,14 @@ export class CreateTask1597756572396 implements MigrationInterface {
                 type: 'varchar',
               },
               {
-                name: 'user_id',
-                type: 'varchar',
+                name: 'user',
+                type: 'uuid',
+                isNullable: true,
               },
               {
                 name: 'status',
                 type: 'varchar',
-                default:'Andamento'
+                
               },
               {
                 name: 'started_at',
