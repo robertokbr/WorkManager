@@ -22,16 +22,16 @@ class Task {
   status: 'Andamento' | 'Finalizada' | 'Cancelada';
 
   @Column()
-  user_id: string;
+  user: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @JoinColumn({ name: 'user' })
+  userId: User;
 
-  @Column('timestamptz')
+  @Column('timestamp')
   started_at: Date;
 
-  @Column('timestamptz')
+  @Column('timestamp')
   finished_at: Date;
 
   @Column()
