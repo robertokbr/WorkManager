@@ -6,10 +6,10 @@ import teamRouter from './team.routes'
 
 const routes = Router();
 
-routes.use('/sessions', sessionsRouter);
+routes.use('/session', sessionsRouter);
 routes.use('/task', taskRouter);
 routes.use('/team', teamRouter)
-routes.use('/users', usersRouter);
+routes.use('/user', usersRouter);
 
 
 export default routes;
