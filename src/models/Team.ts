@@ -21,11 +21,11 @@ class Team {
   @Column()
   manager_id: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, {eager: true})
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, {eager:true})
   @JoinColumn({ name: 'manager_id' })
   manager: User;
 
