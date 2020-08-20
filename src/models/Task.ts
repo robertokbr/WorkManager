@@ -2,8 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
@@ -14,7 +12,6 @@ class Task {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-
   @Column()
   name: string;
 
@@ -24,7 +21,7 @@ class Task {
   @Column()
   userId: string;
 
-  @ManyToOne(() => User, {eager: true})
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user' })
   user: User;
 

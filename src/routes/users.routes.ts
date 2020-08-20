@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import multer from 'multer';
 import CreateUserService from '../services/CreateUserService';
 
 const usersRouter = Router();
@@ -10,7 +9,7 @@ usersRouter.post('/', async (request, response) => {
   const user = await createUser.execute({
     name,
     password,
-    isManager
+    isManager,
   });
   delete user.password;
   return response.json(user);

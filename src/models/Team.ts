@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToOne,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 import User from './User';
 
@@ -21,14 +21,13 @@ class Team {
   @Column()
   manager_id: string;
 
-  @ManyToOne(() => User, {eager: true})
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToOne(() => User, {eager:true})
+  @OneToOne(() => User, { eager: true })
   @JoinColumn({ name: 'manager_id' })
   manager: User;
-
 
   @CreateDateColumn()
   created_at: Date;

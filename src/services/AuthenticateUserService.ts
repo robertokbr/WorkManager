@@ -4,7 +4,6 @@ import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../config/auth';
 
-
 interface Request {
   name: string;
   password: string;
@@ -15,7 +14,7 @@ interface Response {
 }
 
 class AuthenticateUserService {
-  public async execute({  password, name }: Request): Promise<Response> {
+  public async execute({ password, name }: Request): Promise<Response> {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
       where: { name },
