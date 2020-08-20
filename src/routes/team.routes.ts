@@ -18,11 +18,9 @@ teamRouter.post('/', ensureAuthenticated, async (request, response) => {
 teamRouter.get('/:manager_id', async (request, response)=>{
   const {manager_id} = request.params;
   const teamRepository = getRepository(Team);
-  const userRepository  = getRepository(User); 
-  const users_id =  (await teamRepository.find({where:{manager_id}})).map( response => response.user_id)
-  console.log(users_id)
-  const teamUsers = await userRepository.find({where:{ id: In(users_id) }})
-  return response.json(teamUsers)
+  const team  = await teamRepository.find({where:{manager_id}})
+  const users = team.map( teamUser => teamUser.user)
+  return response.json({provider: team[0].manager , members:users})
 })
 
 

@@ -14,7 +14,7 @@ class CreateTaskService{
       started_at = Date();
     }
     const task =  taskRepository.create({
-     name: taskName, user: user_id, started_at,status: 'Andamento'
+     name: taskName, userId: user_id, started_at,status: 'Andamento'
     });
     await taskRepository.save(task);
     return task;
