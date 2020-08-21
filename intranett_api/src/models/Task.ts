@@ -22,7 +22,7 @@ class Task {
   userId: string;
 
   @ManyToOne(() => User, { eager: true })
-  @JoinColumn({ name: 'user' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @Column('timestamp')
