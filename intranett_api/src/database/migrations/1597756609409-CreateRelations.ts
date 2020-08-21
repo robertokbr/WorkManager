@@ -29,7 +29,7 @@ export default class CreateRelations1597756609409
       'task',
       new TableForeignKey({
         name: 'UserTaskKey',
-        columnNames: ['user'],
+        columnNames: ['userId'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'SET NULL',

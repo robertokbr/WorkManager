@@ -18,7 +18,7 @@ export default class CreateTask1597756572396 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'user',
+            name: 'userId',
             type: 'uuid',
             isNullable: true,
           },
