@@ -1,81 +1,91 @@
-import React, { useState, useEffect } from 'react';
-
-import { FiArrowDown, FiArrowUp, FiBox } from 'react-icons/fi';
+import React, { useState, useEffect, useCallback } from 'react';
+import { FiUserPlus, FiUsers, FiCalendar } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../../components/Header';
-import { Container, CardContainer, Card, TableContainer } from './styles';
+import {
+  Container,
+  ButtonContainer,
+  ButtonDashboard,
+  TableContainer,
+} from './styles';
+import { useAuth } from '../../hooks/auth';
 
-interface Transaction {
+interface TaskContent {
   id: string;
-  title: string;
-  value: number;
-  formattedValue: string;
-  formattedDate: string;
-  type: 'income' | 'outcome';
-  category: { title: string };
-}
-
-interface Balance {
-  income: string;
-  outcome: string;
-  total: string;
+  name: string;
+  status: 'Cancelada' | 'Andamento' | 'Finalizada';
+  user: string;
+  started_at: Date;
+  finished_at: Date;
+  cancellationReason: string;
 }
 
 const Dashboard: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [balance, setBalance] = useState<Balance>({} as Balance);
+  const [allTask, setAllTask] = useState<TaskContent[]>([]);
+  const { user, token } = useAuth();
+
+  useEffect(() => {
+    api
+      .get(`/task/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => setAllTask(response.data));
+  }, [user.id, token]);
+
+  const handleGetFormatedData = useCallback((data: Date) => {
+    if (!data) return;
+    const localDate = new Date(data).toLocaleDateString('pt-br');
+    const localTime = new Date(data).toLocaleTimeString('pt-br');
+    const completDate = `${localDate} as ${localTime}`;
+    return completDate;
+  }, []);
 
   return (
     <>
       <Header />
       <Container>
-        {balance && (
-          <CardContainer>
-            <Card>
-              <header>
-                <p>Entradas</p>
-                <FiArrowDown />
-              </header>
-              <h1 data-testid="balance-income">{balance.income}</h1>
-            </Card>
-            <Card>
-              <header>
-                <p>Saídas</p>
-                <FiArrowUp />
-              </header>
-              <h1 data-testid="balance-outcome">{balance.outcome}</h1>
-            </Card>
-            <Card total>
-              <header>
-                <p>Total</p>
-                <FiBox />
-              </header>
-              <h1 data-testid="balance-total">{balance.total}</h1>
-            </Card>
-          </CardContainer>
-        )}
+        <ButtonContainer>
+          <ButtonDashboard>
+            <Link to="/createTeam">
+              <h1 data-testid="balance-income">Criar time</h1>
+              <FiUserPlus size={30} />
+            </Link>
+          </ButtonDashboard>
+          <ButtonDashboard>
+            <Link to="/teamUsers">
+              <h1 data-testid="balance-outcome">Visualizar time</h1>
+              <FiUsers size={30} />
+            </Link>
+          </ButtonDashboard>
+          <ButtonDashboard>
+            <button type="button" onClick={() => {}}>
+              <h1 data-testid="balance-total">Criar tarefa</h1>
+              <FiCalendar size={30} />
+            </button>
+          </ButtonDashboard>
+        </ButtonContainer>
 
         <TableContainer>
           <table>
             <thead>
               <tr>
-                <th>Título</th>
-                <th>Preço</th>
-                <th>Categoria</th>
-                <th>Data</th>
+                <th>Tárefa</th>
+                <th>Ínicio</th>
+                <th>Término</th>
+                <th>Status</th>
               </tr>
             </thead>
 
             <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction.id}>
-                  <td className="title">{transaction.title}</td>
-                  <td className={transaction.type}>
-                    {transaction.type === 'outcome' && '- '}
-                    {transaction.formattedValue}
-                  </td>
-                  <td>{transaction.category.title}</td>
-                  <td>{transaction.formattedDate}</td>
+              {allTask.map(task => (
+                <tr key={task.id}>
+                  <td className="title">{task.name}</td>
+                  <td>{handleGetFormatedData(task.started_at)}</td>
+                  <td>{handleGetFormatedData(task.finished_at)}</td>
+                  <td className={task.status}>{task.status}</td>
                 </tr>
               ))}
             </tbody>
