@@ -5,7 +5,6 @@ import { FiLogIn, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { Container, Background, Content, FormContainer } from './styles';
-import logo from '../../assets/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
@@ -17,15 +16,18 @@ interface SignFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-
   const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: SignFormData) => {
-      await signIn({
-        name: data.name,
-        password: data.password,
-      });
+      try {
+        await signIn({
+          name: data.name,
+          password: data.password,
+        });
+      } catch (err) {
+        alert('Dados invalidos');
+      }
     },
     [signIn],
   );
@@ -34,9 +36,8 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <FormContainer>
-          <img src={logo} alt="Gobarber" />
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu Logon</h1>
+            <h1>Faça seu LogIn</h1>
             <Input icon={FiUser} name="name" placeholder="Name" />
             <Input
               icon={FiLock}
