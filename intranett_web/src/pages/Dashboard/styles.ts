@@ -21,7 +21,6 @@ export const ButtonContainer = styled.section`
 
 export const ButtonDashboard = styled.div`
   background: #333333;
-  padding: 22px 32px;
   border-radius: 5px;
   padding: 40px 0;
   display: flex;
@@ -41,6 +40,10 @@ export const ButtonDashboard = styled.div`
       font-size: 36px;
       margin-right: 10px;
     }
+
+    @media (max-width: 967px) {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -59,29 +62,33 @@ export const TableContainer = styled.section`
       font-size: 16px;
       line-height: 24px;
     }
-
-    td {
-      padding: 20px 32px;
-      border: 0;
-      background: #333333;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-
-      &.Finalizada {
-        color: #12a454;
+    tbody {
+      tr {
+        cursor: pointer;
       }
-      &.Cancelada {
-        color: #e83f5b;
+      td {
+        padding: 20px 32px;
+        border: 0;
+        background: #333333;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+
+        &.Finalizada {
+          color: #12a454;
+        }
+        &.Cancelada {
+          color: #e83f5b;
+        }
       }
-    }
 
-    td:first-child {
-      border-radius: 8px 0 0 8px;
-    }
+      td:first-child {
+        border-radius: 8px 0 0 8px;
+      }
 
-    td:last-child {
-      border-radius: 0 8px 8px 0;
+      td:last-child {
+        border-radius: 0 8px 8px 0;
+      }
     }
   }
 `;

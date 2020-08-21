@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiUserPlus, FiUsers, FiCalendar } from 'react-icons/fi';
+import { FiUserPlus, FiUsers, FiCalendar, FiXCircle } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../../components/Header';
@@ -10,6 +10,7 @@ import {
   TableContainer,
 } from './styles';
 import { useAuth } from '../../hooks/auth';
+import FloatForm from '../../components/FloatForm';
 
 interface TaskContent {
   id: string;
@@ -23,6 +24,7 @@ interface TaskContent {
 
 const Dashboard: React.FC = () => {
   const [allTask, setAllTask] = useState<TaskContent[]>([]);
+  const [formVisible, setFormVisible] = useState(false);
   const { user, token } = useAuth();
 
   useEffect(() => {
@@ -42,9 +44,29 @@ const Dashboard: React.FC = () => {
     const completDate = `${localDate} as ${localTime}`;
     return completDate;
   }, []);
+  const handleSetFormVisible = useCallback(() => {
+    setFormVisible(state => !state);
+  }, []);
 
   return (
     <>
+      {formVisible && (
+        <FloatForm
+          returnTask={value => {
+            setAllTask(state => [...state, value]);
+            handleSetFormVisible();
+          }}
+        >
+          <button
+            className="cancel"
+            onClick={handleSetFormVisible}
+            type="button"
+          >
+            Cancelar
+            <FiXCircle size={20} />
+          </button>
+        </FloatForm>
+      )}
       <Header />
       <Container>
         <ButtonContainer>
@@ -61,7 +83,7 @@ const Dashboard: React.FC = () => {
             </Link>
           </ButtonDashboard>
           <ButtonDashboard>
-            <button type="button" onClick={() => {}}>
+            <button type="button" onClick={handleSetFormVisible}>
               <h1 data-testid="balance-total">Criar tarefa</h1>
               <FiCalendar size={30} />
             </button>
@@ -82,7 +104,7 @@ const Dashboard: React.FC = () => {
             <tbody>
               {allTask.map(task => (
                 <tr key={task.id}>
-                  <td className="title">{task.name}</td>
+                  <td>{task.name}</td>
                   <td>{handleGetFormatedData(task.started_at)}</td>
                   <td>{handleGetFormatedData(task.finished_at)}</td>
                   <td className={task.status}>{task.status}</td>
