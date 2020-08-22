@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #282a36;
+  background: #1c1b29;
   padding: 30px 0;
 
   header {
@@ -13,7 +13,8 @@ export const Container = styled.div`
     justify-content: space-between;
 
     nav {
-      button {
+      button,
+      a {
         display: flex;
         align-items: center;
         justify-content: center;
