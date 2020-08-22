@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useRef, useCallback } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -70,7 +69,6 @@ const FloatForm: React.FC<Props> = ({ children, returnTask, taskFunction }) => {
       const formatedDate = new Date(`${data.date} ${data.time}`);
 
       try {
-        console.log(data.reason);
         if (taskFunction.operation === 'cancelTask' && !data.reason) {
           throw new Error('É necessário especificar o motivo');
         }
