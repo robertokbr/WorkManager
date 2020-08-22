@@ -10,7 +10,6 @@ taskRouter.use(ensureAuthenticated);
 
 taskRouter.get('/:id', async (request, response) => {
   const { id } = request.params;
-  console.log(id);
   const taskRepository = getRepository(Task);
   const task = await taskRepository.find({ where: { userId: id } });
   return response.json(task);
