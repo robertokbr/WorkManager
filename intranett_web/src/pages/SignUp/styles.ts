@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { shade } from 'polished';
 import SignUpbackground from '../../assets/background.jpg';
 
@@ -13,6 +13,11 @@ export const AnimationContainer = styled.div`
   flex-direction: column;
   place-content: center;
   align-items: center;
+
+  option {
+    font-size: 20px;
+    color: #000;
+  }
   form {
     margin: 80px 0;
     width: 340px;

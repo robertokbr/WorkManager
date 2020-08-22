@@ -7,10 +7,12 @@ import { Container, Background, Content, AnimationContainer } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import api from '../../services/api';
+import Select from '../../components/select';
 
 interface SignUpFormData {
   name: string;
   password: string;
+  isManager: boolean;
 }
 
 const SignUp: React.FC = () => {
@@ -18,12 +20,20 @@ const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
-    async (data: SignUpFormData) => {
+    async ({ isManager, name, password }: SignUpFormData) => {
       try {
-        await api.post('/user', data);
+        if (name === '') {
+          throw new Error('O nome é obrigatório');
+        }
+        await api.post('/user', {
+          name,
+          password,
+          isManager,
+        });
+
         history.push('/');
       } catch (err) {
-        alert('Dados invalidos');
+        alert(err);
       }
     },
 
@@ -45,6 +55,10 @@ const SignUp: React.FC = () => {
               type="password"
               placeholder="Senha"
             />
+            <Select icon={FiUser} name="isManager">
+              <option value={0}>Usuário</option>
+              <option value={1}>Gestor</option>
+            </Select>
             <Button type="submit">Cadastrar</Button>
           </Form>
           <Link to="/">
