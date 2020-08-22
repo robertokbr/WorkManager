@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface formProps {
-  hasError: boolean;
-}
+import { shade } from 'polished';
 
 export const Container = styled.div`
   max-width: 960px;
@@ -11,33 +8,31 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 48px;
-  color: #3a3a3a;
-  margin-top: 80px;
-  max-width: 450px;
-  line-height: 56px;
+  position: absolute;
+  top: 15%;
+  font-size: 64px;
+  color: #fff;
 `;
 
 export const Users = styled.div`
   margin-top: 80px;
   max-width: 700px;
 
-  a {
-    background: #fff;
+  button {
+    background: #333333;
     border-radius: 5px;
     width: 100%;
     padding: 24px;
     display: block;
-    text-decoration: none;
     display: flex;
     align-items: center;
     transition: transform 0.2s;
-
+    border: none;
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
-    & + a {
+    & + button {
       margin-top: 16px;
     }
 
@@ -52,17 +47,31 @@ export const Users = styled.div`
 
       strong {
         font-size: 20px;
-        color: #3d3d4d;
+        color: #fff;
       }
       p {
         font-size: 18px;
-        color: #a8a8b3;
+        color: #fff;
         margin-top: 4px;
       }
     }
     svg {
       margin-left: auto;
-      color: #cbcbd6;
+      color: #fff;
+    }
+    &.selected {
+      border: 1px solid #12a454;
+    }
+
+    &.submit {
+      background: #5541a2;
+      display: flex;
+      justify-content: center;
+      transition: 0.2s;
+      &:hover {
+        background: ${shade(0.2, '#5541a2')};
+        transform: scale(1);
+      }
     }
   }
 `;
