@@ -19,6 +19,7 @@ class AuthenticateUserService {
     const user = await userRepository.findOne({
       where: { name },
     });
+
     if (!user) {
       throw new Error('incorrect name');
     }
