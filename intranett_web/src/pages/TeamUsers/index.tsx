@@ -1,96 +1,47 @@
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Container, Title, Form, Repositories, Error } from './styles';
-import logoImg from '../../assets/logo.svg';
+import { Container, Title, Users } from './styles';
+import userAvatar from '../../assets/avatar.jpg';
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
-interface Repository {
-  full_name: string;
-  description: string;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
+interface UserData {
+  id: string;
+  name: string;
+  password: string;
+}
+interface Response {
+  provider: UserData;
+  members: UserData[];
 }
 
-const TeamUsers: React.FC = () => {
-  const [newRepo, setNewRepo] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>(() => {
-    const storagedRepositories = localStorage.getItem(
-      '@GithubExplorer:repositories',
-    );
-    if (storagedRepositories) {
-      return JSON.parse(storagedRepositories);
-    }
-    return [];
-  });
-
-  const [inputError, setInputError] = useState('');
+const CreateTeamUsers: React.FC = () => {
+  const [teamUsers, setTeamUsers] = useState<UserData[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    localStorage.setItem(
-      '@GithubExplorer:repositories',
-      JSON.stringify(repositories),
-    );
-  }, [repositories]);
-
-  async function handleAddRepository(
-    event: FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
-    if (!newRepo) {
-      setInputError('Digite Autor/NomeDoRepositório');
-      return;
-    }
-    try {
-      const response = await api.get<Repository>(`repos/${newRepo}`);
-      const repository = response.data;
-      setRepositories([...repositories, repository]);
-      setNewRepo('');
-      setInputError('');
-    } catch (err) {
-      setInputError('O repositório não existe ou o nome esta incorreto');
-    }
-  }
+    api
+      .get<Response>(`/team/${user.id}`)
+      .then(response => setTeamUsers(response.data.members));
+  }, [user.id]);
 
   return (
     <Container>
-      <img src={logoImg} alt="logo app" />
-      <Title>Explore repositórios no Github</Title>
-      <Form hasError={!!inputError} onSubmit={handleAddRepository}>
-        <input
-          value={newRepo}
-          onChange={e => setNewRepo(e.target.value)}
-          placeholder="Digite o nome do repositório"
-        />
-        <button type="submit">Pesqusiar</button>
-      </Form>
-      {inputError && <Error>{inputError}</Error>}
-
-      <Repositories>
-        {repositories.map(repository => (
-          <motion.div animate={{ scale: 2 }}>
-            <Link
-              to={`/repository/${repository.full_name}`}
-              key={repository.full_name}
-            >
-              <img
-                src={repository.owner.avatar_url}
-                alt={repository.owner.login}
-              />
-              <div>
-                <strong>{repository.full_name}</strong>
-                <p>{repository.description}</p>
-              </div>
-              <FiChevronRight size={20} />
-            </Link>
-          </motion.div>
+      <Title>Selecione os usuarios</Title>
+      <Users>
+        {teamUsers.map(teamUser => (
+          <Link to={`/userTeamDashboard/${teamUser.id}`} key={teamUser.id}>
+            <img src={userAvatar} alt={teamUser.name} />
+            <div>
+              <strong>{teamUser.name}</strong>
+            </div>
+            <FiChevronRight size={20} />
+          </Link>
         ))}
-      </Repositories>
+      </Users>
     </Container>
   );
 };
 
-export default TeamUsers;
+export default CreateTeamUsers;
