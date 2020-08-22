@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import { shade } from 'polished';
+import styled from 'styled-components';
 
 interface formProps {
   hasError: boolean;
@@ -12,11 +11,10 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 48px;
-  color: #3a3a3a;
-  margin-top: 80px;
-  max-width: 450px;
-  line-height: 56px;
+  position: absolute;
+  top: 15%;
+  font-size: 64px;
+  color: #fff;
 `;
 
 export const Users = styled.div`
@@ -24,7 +22,7 @@ export const Users = styled.div`
   max-width: 700px;
 
   a {
-    background: #fff;
+    background: #333333;
     border-radius: 5px;
     width: 100%;
     padding: 24px;
@@ -53,11 +51,11 @@ export const Users = styled.div`
 
       strong {
         font-size: 20px;
-        color: #3d3d4d;
+        color: #fff;
       }
       p {
         font-size: 18px;
-        color: #a8a8b3;
+        color: #fff;
         margin-top: 4px;
       }
     }
