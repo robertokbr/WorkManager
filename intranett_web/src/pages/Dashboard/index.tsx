@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiUserPlus, FiUsers, FiCalendar, FiXCircle } from 'react-icons/fi';
+import {
+  FiUserPlus,
+  FiUsers,
+  FiCalendar,
+  FiXCircle,
+  FiCheckCircle,
+} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../../components/Header';
@@ -11,6 +17,11 @@ import {
 } from './styles';
 import { useAuth } from '../../hooks/auth';
 import FloatForm from '../../components/FloatForm';
+
+interface TaskOperation {
+  task?: TaskContent;
+  operation: 'addTask' | 'detailTask' | 'cancelTask' | 'finishTask';
+}
 
 interface TaskContent {
   id: string;
@@ -24,17 +35,29 @@ interface TaskContent {
 
 const Dashboard: React.FC = () => {
   const [allTask, setAllTask] = useState<TaskContent[]>([]);
-  const [formVisible, setFormVisible] = useState(false);
+  const [taskFunction, setTaskFunction] = useState<TaskOperation | void>();
   const { user, token } = useAuth();
 
   useEffect(() => {
-    api
+    const data = api
       .get(`/task/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => setAllTask(response.data));
+      .then(response => {
+        const currentTask = response.data.filter(
+          (task: TaskContent) => task.status === 'Andamento',
+        );
+        const finishedTask = response.data.filter(
+          (task: TaskContent) => task.status === 'Finalizada',
+        );
+        const canceledTask = response.data.filter(
+          (task: TaskContent) => task.status === 'Cancelada',
+        );
+
+        setAllTask([...currentTask, ...finishedTask, ...canceledTask]);
+      });
   }, [user.id, token]);
 
   const handleGetFormatedData = useCallback((data: Date) => {
@@ -44,29 +67,42 @@ const Dashboard: React.FC = () => {
     const completDate = `${localDate} as ${localTime}`;
     return completDate;
   }, []);
-  const handleSetFormVisible = useCallback(() => {
-    setFormVisible(state => !state);
-  }, []);
+
+  const handleAddTask = useCallback(
+    (value: TaskContent) => {
+      if (taskFunction && taskFunction.operation === 'addTask') {
+        setAllTask(state => [...state, value]);
+        setTaskFunction();
+        return;
+      }
+      const filteredTasks = allTask.filter(task => task.id !== value.id);
+      setAllTask([...filteredTasks, value]);
+      setTaskFunction();
+    },
+    [taskFunction, allTask],
+  );
 
   return (
     <>
-      {formVisible && (
+      {taskFunction && (
         <FloatForm
+          taskFunction={taskFunction}
           returnTask={value => {
-            setAllTask(state => [...state, value]);
-            handleSetFormVisible();
+            handleAddTask(value);
           }}
         >
           <button
             className="cancel"
-            onClick={handleSetFormVisible}
+            onClick={() => {
+              setTaskFunction();
+            }}
             type="button"
           >
-            Cancelar
-            <FiXCircle size={20} />
+            Fechar
           </button>
         </FloatForm>
       )}
+
       <Header />
       <Container>
         <ButtonContainer>
@@ -83,14 +119,19 @@ const Dashboard: React.FC = () => {
             </Link>
           </ButtonDashboard>
           <ButtonDashboard>
-            <button type="button" onClick={handleSetFormVisible}>
+            <button
+              type="button"
+              onClick={() => {
+                setTaskFunction({ operation: 'addTask' });
+              }}
+            >
               <h1 data-testid="balance-total">Criar tarefa</h1>
               <FiCalendar size={30} />
             </button>
           </ButtonDashboard>
         </ButtonContainer>
 
-        <TableContainer>
+        <TableContainer formIsVisible={Number(!!taskFunction)}>
           <table>
             <thead>
               <tr>
@@ -98,16 +139,42 @@ const Dashboard: React.FC = () => {
                 <th>Ínicio</th>
                 <th>Término</th>
                 <th>Status</th>
+                <th>Ações</th>
               </tr>
             </thead>
 
             <tbody>
               {allTask.map(task => (
-                <tr key={task.id}>
-                  <td>{task.name}</td>
+                <tr
+                  onClick={() => {
+                    setTaskFunction({ task, operation: 'detailTask' });
+                  }}
+                  key={task.id}
+                >
+                  <td className="first">{task.name}</td>
                   <td>{handleGetFormatedData(task.started_at)}</td>
                   <td>{handleGetFormatedData(task.finished_at)}</td>
                   <td className={task.status}>{task.status}</td>
+
+                  <td id="last">
+                    {task.status === 'Andamento' && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setTaskFunction({ task, operation: 'cancelTask' });
+                            console.log('hello');
+                          }}
+                        >
+                          <FiXCircle size={25} />
+                        </button>
+
+                        <button type="button">
+                          <FiCheckCircle size={25} />
+                        </button>
+                      </>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

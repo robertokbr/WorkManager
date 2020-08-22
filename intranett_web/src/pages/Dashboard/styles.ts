@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface FormProps {
+  formIsVisible: number;
+}
 
 export const Container = styled.div`
   width: 100%;
@@ -47,7 +51,7 @@ export const ButtonDashboard = styled.div`
   }
 `;
 
-export const TableContainer = styled.section`
+export const TableContainer = styled.section<FormProps>`
   margin-top: 64px;
 
   table {
@@ -73,6 +77,11 @@ export const TableContainer = styled.section`
         font-size: 16px;
         font-weight: bold;
         color: #fff;
+        ${props =>
+          !props.formIsVisible &&
+          css`
+            position: relative;
+          `}
 
         &.Finalizada {
           color: #12a454;
@@ -80,13 +89,35 @@ export const TableContainer = styled.section`
         &.Cancelada {
           color: #e83f5b;
         }
+
+        button {
+          color: #e83f5b;
+          position: absolute;
+          bottom: 25%;
+          transition: transform 0.2s;
+          background: inherit;
+          border: none;
+
+          &:hover {
+            transform: scale(1.2);
+          }
+          &:last-child {
+            color: #12a454;
+            margin-left: 2rem;
+          }
+          ${props =>
+            props.formIsVisible &&
+            css`
+              opacity: 0;
+            `}
+        }
       }
 
       td:first-child {
         border-radius: 8px 0 0 8px;
       }
 
-      td:last-child {
+      td#last {
         border-radius: 0 8px 8px 0;
       }
     }
