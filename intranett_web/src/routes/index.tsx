@@ -6,17 +6,13 @@ import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
 import TeamUsers from '../pages/TeamUsers';
 import CreateTeamUsers from '../pages/CreateTeamUsers';
-import UserTeamDashboard from '../pages/UserTeamDashboard';
+import TeamUserTask from '../pages/TeamUserTask';
 
 const Routes: React.FC = () => (
   <Switch>
     <Route component={SignIn} path="/" exact />
     <Route component={SignUp} path="/signup" />
-    <Route
-      component={UserTeamDashboard}
-      path="/userTeamDashboard/:id"
-      isPrivate
-    />
+    <Route component={TeamUserTask} path="/userTask/:id" isPrivate />
     <Route component={Dashboard} path="/dashboard" isPrivate />
     <Route component={TeamUsers} path="/teamUsers" isPrivate />
     <Route component={CreateTeamUsers} path="/createTeam" isPrivate />
