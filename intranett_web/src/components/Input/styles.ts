@@ -40,7 +40,7 @@ export const Container = styled.div<ContainerProps>`
 
 
 
-  input,textarea {
+  input {
     flex: 1;
     background: transparent;
     border: 0;
