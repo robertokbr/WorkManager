@@ -4,6 +4,10 @@ import api from '../services/api';
 interface User {
   id: string;
   name: string;
+  isManager: boolean;
+}
+interface Response {
+  members: User[];
 }
 
 interface AuthState {
@@ -21,6 +25,7 @@ interface AuthContextData {
   token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  usersInTheTeam(): Promise<User[]>;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -49,7 +54,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@Intranett:token', token);
     localStorage.setItem('@Intranett:user', JSON.stringify(user));
     setData({ user, token });
-    console.log(name, password);
   }, []);
 
   const signOut = useCallback(async () => {
@@ -58,9 +62,25 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
+  const usersInTheTeam = useCallback(async () => {
+    const response = await api.get<Response>(`/team/${data.user.id}`, {
+      headers: {
+        Authorization: `Bearer ${data.token}`,
+      },
+    });
+    const users = response.data.members;
+    return users;
+  }, [data.token, data.user]);
+
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signOut, signIn, token: data.token }}
+      value={{
+        user: data.user,
+        signOut,
+        usersInTheTeam,
+        signIn,
+        token: data.token,
+      }}
     >
       {children}
     </AuthContext.Provider>
