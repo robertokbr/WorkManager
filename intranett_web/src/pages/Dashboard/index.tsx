@@ -5,6 +5,8 @@ import {
   FiCalendar,
   FiXCircle,
   FiCheckCircle,
+  FiArrowLeft,
+  FiArchive,
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
@@ -17,6 +19,8 @@ import {
 } from './styles';
 import { useAuth } from '../../hooks/auth';
 import FloatForm from '../../components/FloatForm';
+import sortResponse from '../../utils/sortResponse';
+import getFormatedData from '../../utils/getFormatedData';
 
 interface TaskOperation {
   task?: TaskContent;
@@ -27,7 +31,7 @@ interface TaskContent {
   id: string;
   name: string;
   status: 'Cancelada' | 'Andamento' | 'Finalizada';
-  user: string;
+  userId: string;
   started_at: Date;
   finished_at: Date;
   cancellationReason: string;
@@ -36,37 +40,20 @@ interface TaskContent {
 const Dashboard: React.FC = () => {
   const [allTask, setAllTask] = useState<TaskContent[]>([]);
   const [taskFunction, setTaskFunction] = useState<TaskOperation | void>();
-  const { user, token } = useAuth();
+  const { user, token, signOut } = useAuth();
 
   useEffect(() => {
-    const data = api
+    api
       .get(`/task/${user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(response => {
-        const currentTask = response.data.filter(
-          (task: TaskContent) => task.status === 'Andamento',
-        );
-        const finishedTask = response.data.filter(
-          (task: TaskContent) => task.status === 'Finalizada',
-        );
-        const canceledTask = response.data.filter(
-          (task: TaskContent) => task.status === 'Cancelada',
-        );
-
-        setAllTask([...currentTask, ...finishedTask, ...canceledTask]);
+        const tasks = sortResponse(response.data);
+        setAllTask(tasks);
       });
   }, [user.id, token]);
-
-  const handleGetFormatedData = useCallback((data: Date) => {
-    if (!data) return;
-    const localDate = new Date(data).toLocaleDateString('pt-br');
-    const localTime = new Date(data).toLocaleTimeString('pt-br');
-    const completDate = `${localDate} as ${localTime}`;
-    return completDate;
-  }, []);
 
   const handleAddTask = useCallback(
     (value: TaskContent) => {
@@ -103,21 +90,37 @@ const Dashboard: React.FC = () => {
         </FloatForm>
       )}
 
-      <Header />
+      <Header>
+        <button type="button" onClick={signOut}>
+          <FiArrowLeft />
+          Logout
+        </button>
+      </Header>
       <Container>
-        <ButtonContainer>
+        <ButtonContainer isManager={Number(user.isManager)}>
           <ButtonDashboard>
-            <Link to="/createTeam">
-              <h1 data-testid="balance-income">Criar time</h1>
-              <FiUserPlus size={30} />
-            </Link>
+            {user.isManager ? (
+              <Link to="/createTeam">
+                <h1 data-testid="balance-income">Adicionar</h1>
+                <FiUserPlus size={30} />
+              </Link>
+            ) : (
+              <h1>
+                Andamento:
+                <span>
+                  {allTask.filter(task => task.status === 'Andamento').length}
+                </span>
+              </h1>
+            )}
           </ButtonDashboard>
-          <ButtonDashboard>
-            <Link to="/teamUsers">
-              <h1 data-testid="balance-outcome">Visualizar time</h1>
-              <FiUsers size={30} />
-            </Link>
-          </ButtonDashboard>
+          {user.isManager && (
+            <ButtonDashboard>
+              <Link to="/teamUsers">
+                <h1 data-testid="balance-outcome">Visualizar time</h1>
+                <FiUsers size={30} />
+              </Link>
+            </ButtonDashboard>
+          )}
           <ButtonDashboard>
             <button
               type="button"
@@ -145,35 +148,44 @@ const Dashboard: React.FC = () => {
 
             <tbody>
               {allTask.map(task => (
-                <tr
-                  onClick={() => {
-                    setTaskFunction({ task, operation: 'detailTask' });
-                  }}
-                  key={task.id}
-                >
+                <tr key={task.id}>
                   <td className="first">{task.name}</td>
-                  <td>{handleGetFormatedData(task.started_at)}</td>
-                  <td>{handleGetFormatedData(task.finished_at)}</td>
+                  <td>{getFormatedData(task.started_at)}</td>
+                  <td>{getFormatedData(task.finished_at)}</td>
                   <td className={task.status}>{task.status}</td>
 
                   <td id="last">
                     {task.status === 'Andamento' && (
                       <>
                         <button
+                          className="cancel"
                           type="button"
                           onClick={() => {
                             setTaskFunction({ task, operation: 'cancelTask' });
-                            console.log('hello');
                           }}
                         >
                           <FiXCircle size={25} />
                         </button>
 
-                        <button type="button">
+                        <button
+                          className="finish"
+                          type="button"
+                          onClick={() => {
+                            setTaskFunction({ task, operation: 'finishTask' });
+                          }}
+                        >
                           <FiCheckCircle size={25} />
                         </button>
                       </>
                     )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTaskFunction({ task, operation: 'detailTask' });
+                      }}
+                    >
+                      <FiArchive size={25} />
+                    </button>
                   </td>
                 </tr>
               ))}

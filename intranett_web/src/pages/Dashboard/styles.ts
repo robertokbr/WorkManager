@@ -1,7 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface FormProps {
   formIsVisible: number;
+}
+
+interface GridProps {
+  isManager: number;
 }
 
 export const Container = styled.div`
@@ -16,7 +20,7 @@ export const Title = styled.h1`
   color: #3a3a3a;
 `;
 
-export const ButtonContainer = styled.section`
+export const ButtonContainer = styled.section<GridProps>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
@@ -30,6 +34,14 @@ export const ButtonDashboard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  span {
+    color: #12a454;
+    margin-left: 8px;
+  }
+  h1 {
+    font-size: 32px;
+    margin-right: 10px;
+  }
   a,
   button {
     display: flex;
@@ -40,10 +52,6 @@ export const ButtonDashboard = styled.div`
     background: none;
     outline: 0;
     border: none;
-    h1 {
-      font-size: 36px;
-      margin-right: 10px;
-    }
 
     @media (max-width: 967px) {
       flex-direction: column;
@@ -77,11 +85,6 @@ export const TableContainer = styled.section<FormProps>`
         font-size: 16px;
         font-weight: bold;
         color: #fff;
-        ${props =>
-          !props.formIsVisible &&
-          css`
-            position: relative;
-          `}
 
         &.Finalizada {
           color: #12a454;
@@ -91,29 +94,27 @@ export const TableContainer = styled.section<FormProps>`
         }
 
         button {
-          color: #e83f5b;
-          position: absolute;
-          bottom: 25%;
-          transition: transform 0.2s;
+          color: #fff;
+          transition: 0.2s;
           background: inherit;
           border: none;
 
           &:hover {
-            transform: scale(1.2);
+            opacity: 0.5;
           }
-          &:last-child {
+          &.finish {
             color: #12a454;
-            margin-left: 2rem;
           }
-          ${props =>
-            props.formIsVisible &&
-            css`
-              opacity: 0;
-            `}
+          &.cancel {
+            color: #e83f5b;
+          }
+          & + button {
+            margin-left: 1rem;
+          }
         }
       }
 
-      td:first-child {
+      td.first {
         border-radius: 8px 0 0 8px;
       }
 
