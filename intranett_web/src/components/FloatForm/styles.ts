@@ -25,17 +25,27 @@ export const FloatFormContainer = styled.div`
 
   h1,
   h2 {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
-  strong {
-    margin-bottom: 1rem;
+  span {
+    font-weight: 400;
+    opacity: 0.7;
+    font-size: 14px;
+    margin: 1rem 0;
     display: block;
-    span {
-      margin-left: 1rem;
-      font-weight: 400;
-      opacity: 0.8;
+    svg {
+      margin-right: 0.5rem;
     }
   }
+  strong {
+    display: flex;
+    > span {
+      margin-left: 0.5rem;
+      margin-top: 0;
+      display: flex;
+    }
+  }
+
   button {
     width: 300px;
   }
@@ -49,9 +59,7 @@ export const FloatFormContainer = styled.div`
     transition: 0.2s;
     font-weight: bold;
     margin-top: 2rem;
-    svg {
-      margin-left: 5px;
-    }
+
     &:hover {
       color: ${shade(0.5, '#fff')};
     }
