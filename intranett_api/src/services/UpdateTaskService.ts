@@ -5,6 +5,7 @@ interface Request {
   task_id: string;
   finished_at: Date;
   cancellationReason?: string;
+  manager_id: string;
 }
 
 class UpdateTaskService {
@@ -15,6 +16,7 @@ class UpdateTaskService {
   }: Request): Promise<Task> {
     const taskRepository = getRepository(Task);
     const task = await taskRepository.findOne({ where: { id: task_id } });
+
     if (!task) {
       throw new Error('Reload your application to update task');
     }

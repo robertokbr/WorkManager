@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import CreateUserService from '../services/CreateUserService';
 import User from '../models/User';
-
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 const usersRouter = Router();
 
 usersRouter.post('/', async (request, response) => {
@@ -17,7 +17,7 @@ usersRouter.post('/', async (request, response) => {
   return response.json(user);
 });
 
-usersRouter.get('/', async (request, response) => {
+usersRouter.get('/', ensureAuthenticated, async (request, response) => {
   const userRepository = getRepository(User);
   const allUsers = (await userRepository.find()).map(user => {
     delete user.password;

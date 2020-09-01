@@ -25,11 +25,13 @@ taskRouter.post('/', async (request, response) => {
 
 taskRouter.put('/', async (request, response) => {
   const { task_id, cancellationReason, finished_at } = request.body;
+  const { id } = request.user;
   const updateTask = new UpdateTaskService();
   const newTask = await updateTask.execute({
     task_id,
     cancellationReason,
     finished_at,
+    manager_id: id,
   });
   return response.json(newTask);
 });
