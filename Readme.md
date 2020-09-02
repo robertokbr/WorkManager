@@ -1,11 +1,11 @@
 <h1 align="center">
-  <img src="https://github.com/robertokbr/WorkManager/blob/master/frontend/src/assets/logoAlt.svg" width="170px" /><br>
+  <img src="https://github.com/robertokbr/WorkManager/blob/master/Frontend/src/assets/logo.svg" width="170px" /><br>
   <br>
 WorkManager
 </h1>
 
 <h4 align="center">
-  Recycle, Collect, Buy or sale Recycled products, and help to save the world! 
+  Application to help organize many project task of a team by a manager, providing a simple dashboard to input the initial time of the task, title, detail, time of finish or cancelation, cancelation reason, and others. 
 </h4>
 <p align="center">
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/robertokbr/WorkManager.svg">
@@ -27,26 +27,25 @@ WorkManager
 </p>
 
 <h1 align="center">
-  <img src="https://github.com/robertokbr/WorkManager/blob/master/Github/screencapture-localhost-3000-2020-06-24-09_49_58.png">
-   <img src="https://github.com/robertokbr/WorkManager/blob/master/Github/Captura%20de%20Tela%20(105).png" >
-  <img src="https://github.com/robertokbr/WorkManager/blob/master/Github/Captura%20de%20Tela%20(106).png" >
-  <img src="https://github.com/robertokbr/WorkManager/blob/master/Github/Captura%20de%20Tela%20(107).png" ><img src="https://github.com/robertokbr/WorkManager/blob/master/Github/Home.png" >
+  <img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/WorkManager.gif">
+
 </h1>
 
 ## 💻 Techs
 - Typescript -
 - [NodeJs](https://nodejs.org/en/) - Build the server
 - [ReactJs](https://reactjs.org) - A JavaScript library for building user interfaces
-- [React Native](https://reactnative.dev) - Native Development
-- [Expo](https://expo.io) - Deploy and quickly iterate on native Android, iOS, and web apps
-- [SQLite3](https://www.sqlite.org) - DB Connector
+- [Postgres]() - Database
+- [SQLite3](https://www.sqlite.org) - Optional Database
 - [Express](https://expressjs.com/) - Router of the Application
-- [KnexJs](http://knexjs.org) - SQL query builder for Postgres, MSSQL, MySQL, MariaDB, SQLite3, Oracle, and Amazon Redshift
-- [Celebrate](https://github.com/arb/celebrate) - A joi validation middleware for Express.
+- [Typeorm]() - ORM
 - [CORS](https://www.npmjs.com/package/cors) - Cross-origin Resource Sharing
 - [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and NodeJs
-- React-leaflet - 
-- Multer - 
+- React-spring - 
+- Docker
+- JWT
+- Styled-components
+
 
 
 ## 🕹 How To Use - Frontend application
