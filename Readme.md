@@ -64,6 +64,8 @@ $ cd WorkManager/Frontend
 # Install dependencies
 $ yarn 
 
+# Change the api url in the services to localhost:3333
+
 # Run the app
 $ yarn start
 ```
