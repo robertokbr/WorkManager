@@ -58,10 +58,10 @@ To clone and run this application, you'll need [Git](https://git-scm.com), [Node
 $ git clone https://github.com/robertokbr/WorkManager
 
 # Go into the repository
-$ cd WorkManager
+$ cd WorkManager/Frontend
 
 # Install dependencies
-$ yarn install
+$ yarn 
 
 # Run the app
 $ yarn start
@@ -77,7 +77,7 @@ $ yarn start
 $ git clone https://github.com/robertokbr/WorkManager
 
 # Go into the repository
-$ cd WorkManager
+$ cd WorkManager/Backend
 
 # Install dependencies
 $ yarn 
@@ -94,7 +94,7 @@ $ docker run --name docker -e POSTGRES_PASSWORD=docker -p 5432:54
 32 -d postgres
 ```
 * [Install Dbeaver](https://www.notion.so/MODULO-2-643fa9a4a8424fffa0602a07dad33646#134f91737d9e4216bf5d085c5a0c6121) - an ultimate Universal client which incorporates RDBMS and NoSQL Databases.
-* Create a postgres Database called "postgres", and config to localhost
+* Create a postgres Database called "postgres", config to localhost and run the migrations.
 
 ## Docker Alternative
 * ``OBS``: If you dont wanna run the database at Docker, and you preferer a simple alternative  I recommend you to change the database to Sqlite3, for this you have to:
