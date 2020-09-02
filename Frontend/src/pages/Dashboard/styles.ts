@@ -52,7 +52,7 @@ export const ButtonDashboard = styled.div`
     transition: 0.2s;
 
     &:hover {
-      color: #5541a2;
+      color: #12a454;
     }
     @media (max-width: 967px) {
       flex-direction: column;
