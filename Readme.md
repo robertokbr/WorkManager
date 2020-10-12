@@ -30,7 +30,6 @@ WorkManager
 
 <h1 align="center">
   <img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/WorkManager.gif" width="100%'>
-
 </h1>
 
 ## 💻 Techs
