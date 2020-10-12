@@ -29,7 +29,7 @@ WorkManager
 </p>
 
 <h1 align="center">
-  <img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/WorkManager.gif">
+  <img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/WorkManager.gif" width="100%'>
 
 </h1>
 
