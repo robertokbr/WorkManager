@@ -4,7 +4,7 @@
 <a href="https://workmanager.1thcode.com">WorkManager</a>
 </h1>
 
-### Application to assist organize company team task, by providing a simple dashboard to create activities and manage Diferent kinds of accounts.
+### Web application to organize your Team activities, by providing a simple dashboard that allows you to create tasks and manage Different kinds of accounts.
   * Activity properties:
     - Title 
     - Initial time 
@@ -12,6 +12,9 @@
     - Time of cancelation
     - Cancelation reason
     - Detail 
+  * Account types
+    - User
+    - Manager
   * User account permissions:
     - Create tasks
     - Finish or cancel task
