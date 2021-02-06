@@ -1,7 +1,7 @@
 <h1 align="center">
   <img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/logo.svg" width="170px" /><br>
   <br>
-WorkManager
+<a href="https://workmanager.1thcode.com">WorkManager</a>
 </h1>
 
 ### Application to assist organize company team task, by providing a simple dashboard to create activities and manage Diferent kinds of accounts.
@@ -19,7 +19,7 @@ WorkManager
     - Create team
     - Watch team tasks
     - Sort tasks by type: ```In progress```, ```Done``` & ```Canceled```
-  [workmanager.com](https://workmanager.1thcode.com)
+  
 
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/robertokbr/WorkManager.svg">
