@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/robertokbr/WorkManager/blob/master/Frontend/src/assets/logo.svg" width="170px" /><br>
+  <img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/logo.svg" width="170px" /><br>
   <br>
 WorkManager
 </h1>
