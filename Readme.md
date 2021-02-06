@@ -5,7 +5,21 @@ WorkManager
 </h1>
 
 <h4 align="center">
-  Application to help organize many project task of a team by a manager, providing a simple dashboard to input the initial time of the task, title, detail, time of finish or cancelation, cancelation reason, and others.
+  Application to assist organize company team task, by providing a simple dashboard to create activities and manage Diferent kinds of accounts.
+  * Activity properties:
+    - Title 
+    - Initial time 
+    - Time of finish
+    - Time of cancelation
+    - Cancelation reason
+    - Detail 
+  * User account permissions:
+    - Create tasks
+    - Finish or cancel task
+  * Manager  permissions:
+    - Create team
+    - Watch team tasks
+    - Sort tasks by type: ```In progress```, ```Done``` & ```Canceled```
   <br/>
   <a href="https://workmanager.1thcode.com">workmanager.com</a>
 </h4>
@@ -47,17 +61,16 @@ WorkManager
 - Styled-components
 
 
-
 ## 🕹 How To Use - Frontend application
 
 To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v10.16][nodejs] or higher + [Yarn v1.13][yarn] or higher installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/robertokbr/WorkManager
+$ git clone https://github.com/robertokbr/workmanager-web
 
 # Go into the repository
-$ cd WorkManager/Frontend
+$ cd workmanager-web
 
 # Install dependencies
 $ yarn 
@@ -69,33 +82,30 @@ $ yarn start
 ```
 
 
-
 ## 🕹 How To Use - Backend application
 
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/robertokbr/WorkManager
+$ git clone https://github.com/robertokbr/workmanager-api
 
 # Go into the repository
-$ cd WorkManager/Backend
+$ cd workmanager-api
 
 # Install dependencies
 $ yarn 
 ```
 ---
 
-## How to Run Postgres Database at Docker
+## How to Run Postgres Database on Docker
 
 * [Install Docker](https://www.notion.so/Instalando-Docker-6290d9994b0b4555a153576a1d97bee2)
 
 ```bash
 # Create a Postgres Image
-$ docker run --name docker -e POSTGRES_PASSWORD=docker -p 5432:54
+$ docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5432:54
 32 -d postgres
 ```
-* [Install Dbeaver](https://www.notion.so/MODULO-2-643fa9a4a8424fffa0602a07dad33646#134f91737d9e4216bf5d085c5a0c6121) - an ultimate Universal client which incorporates RDBMS and NoSQL Databases.
-* Create a postgres Database called "postgres", config to localhost and run the migrations.
 
 ## Docker Alternative
 * ``OBS``: If you dont wanna run the database at Docker, and you preferer a simple alternative  I recommend you to change the database to Sqlite3, for this you have to:
@@ -131,7 +141,7 @@ $ yarn add sqlite3
 ## How to Run the Server:
 ```bash
 # Run migrations to create the database estructure
-$ yarn typeorm migratios:run
+$ yarn typeorm migration:run
 
 # Run localhost server
 $ yarn dev:server
@@ -141,7 +151,7 @@ $ yarn dev:server
 
 ## 🏗 How to contribute
 
-- Fork this repo;
+- Fork the [backend](https://github.com/robertokbr/workmanager-api) or [frontend](https://github.com/robertokbr/workmanager-web) repo;
 - Create a branch with your feature: `git checkout -b my-feature`
 - Commit your change: `git commit -m 'feat: My new feature'`
 - Push your branch: `git push origin my-feature`
