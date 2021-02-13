@@ -5,6 +5,23 @@
 </h1>
 
 ### Web application to organize your Team activities, by providing a simple dashboard that allows you to create tasks and manage Different kinds of accounts.
+<p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/robertokbr/WorkManager.svg">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/robertokbr/WorkManager.svg">
+  <a href="https://www.codacy.com/app/robertokbr/WorkManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robertokbr/WorkManager&amp;utm_campaign=Badge_Grade">
+    <img alt="Codacy grade" src="https://img.shields.io/codacy/grade/1b577a07dda843aba09f4bc55d1af8fc.svg">
+  </a>
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/robertokbr/WorkManager.svg">
+  <a href="https://github.com/robertokbr/WorkManager/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/robertokbr/WorkManager.svg">
+  </a>
+  <a href="https://github.com/robertokbr/WorkManager/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/robertokbr/WorkManager.svg">
+  </a>
+</p>
+<img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/WorkManager.gif" width="100%" >
+
+## User Histories
   * Activity properties:
     - Title 
     - Initial time 
@@ -23,22 +40,6 @@
     - Watch team tasks
     - Sort tasks by type: ```In progress```, ```Done``` & ```Canceled```
   
-
-<p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/robertokbr/WorkManager.svg">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/robertokbr/WorkManager.svg">
-  <a href="https://www.codacy.com/app/robertokbr/WorkManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robertokbr/WorkManager&amp;utm_campaign=Badge_Grade">
-    <img alt="Codacy grade" src="https://img.shields.io/codacy/grade/1b577a07dda843aba09f4bc55d1af8fc.svg">
-  </a>
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/robertokbr/WorkManager.svg">
-  <a href="https://github.com/robertokbr/WorkManager/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/robertokbr/WorkManager.svg">
-  </a>
-  <a href="https://github.com/robertokbr/WorkManager/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/robertokbr/WorkManager.svg">
-  </a>
-</p>
-<img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/WorkManager.gif" width="100%" >
 
 ## 💻 Techs
 - Typescript -
