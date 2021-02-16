@@ -145,6 +145,21 @@ $ yarn dev:server
 ---
 
 
+## 🏗 Features to Add
+* Copy task to proper workflow
+* Update task content
+* Arch task
+* Add task tags
+* Add task icon
+* Add team user by id
+* Short user list in the dashboard
+
+
+## 🏗 Bug Fix
+* Fix table overflow when the task content break the height
+* Fix modal task when the task content break the height
+
+
 ## 🏗 How to contribute
 
 - Fork the [backend](https://github.com/robertokbr/workmanager-api) or [frontend](https://github.com/robertokbr/workmanager-web) repo;
