@@ -145,20 +145,25 @@ $ yarn dev:server
 ---
 
 
-## 🏗 Features to Add
+## 🧪 Features to Add
 * Copy task to proper workflow
 * Update task content
-* Arch task
+* To file task
 * Add task tags
 * Add task icon
 * Add team user by id
 * Short user list in the dashboard
 
 
-## 🏗 Bug Fix
+## 🔧 Bug to Fix
 * Fix table overflow when the task content break the height
 * Fix modal task when the task content break the height
 
+
+## 📄 Updates
+* 16/02/2021  
+  - Fix redirect when token expires 
+  - Add team list overview: User tasks number by status  
 
 ## 🏗 How to contribute
 
