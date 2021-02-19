@@ -162,8 +162,15 @@ $ yarn dev:server
 
 ## 📄 Updates
 * 16/02/2021  
-  - Fix redirect when token expires 
-  - Add team list overview: User tasks number by status  
+  - Frontend: Fix redirect when token expires 
+  - Frontend: Add Custom avatar   
+
+* 18/02/2021
+  - Frontend: Add useData hook to manage all application data inside the context and avoid multiple API calls
+  - Backend: Validate user create with a username already in use
+  - Frontend: Add team list overview: User tasks number by status  
+
+<img src="https://github.com/robertokbr/WorkManager/blob/master/.Github/feature-tasknumber.png" width="100%" >
 
 ## 🏗 How to contribute
 
